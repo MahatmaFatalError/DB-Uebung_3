@@ -29,9 +29,8 @@ public class EquiJoin extends BinaryOperator {
 		//TODO: implement this method
 		AbstractRecord joinedRec = null;
 		
-//		for (AbstractSQLValue leftRec : this.leftChild.next().) {		//wie zun teufel Ÿber leftChild iterieren?
-//			
-//		}
+		this.rightChild.close();
+		this.rightChild.open();
 		
 		for(AbstractRecord leftRec = this.leftChild.next(); leftRec != null; leftRec = this.leftChild.next()){
 			
@@ -41,16 +40,10 @@ public class EquiJoin extends BinaryOperator {
 				
 				AbstractSQLValue rightValue = rightRec.getValue(rightAtt);
 				
-				if(leftValue.compareTo(rightValue) == 1){
+				if(leftValue.compareTo(rightValue) == 0){
 					
-					AbstractSQLValue[] leftValues = leftRec.getValues();
-					AbstractSQLValue[] rightValues = rightRec.getValues();
-					
-					AbstractSQLValue[] newValues = concat(leftValues, rightValues);
-					
-					joinedRec = new Record(newValues.length);
-					joinedRec.append(leftRec).append(rightRec);
-					
+					joinedRec = rightRec.append(leftRec);
+										
 					return joinedRec;					
 				}
 				
@@ -68,11 +61,5 @@ public class EquiJoin extends BinaryOperator {
 		this.leftChild.close();
 		this.rightChild.close();
 	}
-	
-	private static <T> T[] concat(T[] first, T[] second) {
-		  T[] result = Arrays.copyOf(first, first.length + second.length);
-		  System.arraycopy(second, 0, result, first.length, second.length);
-		  return result;
-		}
 
 }

@@ -23,25 +23,13 @@ public class Projection extends UnaryOperator {
 	@Override
 	public AbstractRecord next() {
 		//TODO: implement this method
-		
-		AbstractRecord record = new Record(attributes.size());
-		
-//		for(int i = 0; attributes.listIterator().hasNext(); i++){
-//			int projection = attributes.listIterator().next().intValue();
-//			child.open();
-//			record.setValue(i, child.next().getValue(projection));
-//			
-//		}
-		
-		for (int i : attributes) {
-			int projection = attributes.listIterator().next().intValue();
-			//child.open();
-			record.setValue(i, child.next().getValue(projection));
+
+		for(AbstractRecord record = this.child.next(); record != null;){
+
+			record.keepValues(attributes);
+			return record;
 		}
-		child.next();
-		
-		
-		return record;
+		return null;
 	}
 
 	@Override
