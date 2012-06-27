@@ -1,6 +1,7 @@
 package de.dhbw.db2.youdb.sql.operator;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 import de.dhbw.db2.youdb.storage.AbstractRecord;
 import de.dhbw.db2.youdb.storage.Record;
@@ -27,15 +28,16 @@ public class EquiJoin extends BinaryOperator {
 	public AbstractRecord next() {
 		//TODO: implement this method
 		AbstractRecord joinedRec = null;
-		while(true){
-			AbstractRecord leftRec = this.leftChild.next();
+		
+//		for (AbstractSQLValue leftRec : this.leftChild.next().) {		//wie zun teufel Ÿber leftChild iterieren?
+//			
+//		}
+		
+		for(AbstractRecord leftRec = this.leftChild.next(); leftRec != null; leftRec = this.leftChild.next()){
+			
 			AbstractSQLValue leftValue = leftRec.getValue(leftAtt);
 			
-			while(true){
-				AbstractRecord rightRec = this.rightChild.next();
-				if(rightRec == null){
-					break;
-				}
+			for(AbstractRecord rightRec = this.rightChild.next(); rightRec != null; rightRec = this.rightChild.next()){
 				
 				AbstractSQLValue rightValue = rightRec.getValue(rightAtt);
 				
@@ -51,10 +53,12 @@ public class EquiJoin extends BinaryOperator {
 					
 					return joinedRec;					
 				}
-			}
+				
+			}		
 			
-			break;
-		}		
+			
+		}
+
 		
 		return joinedRec;
 	}

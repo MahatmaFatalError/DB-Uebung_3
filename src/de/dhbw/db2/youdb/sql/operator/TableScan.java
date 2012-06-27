@@ -24,6 +24,13 @@ public class TableScan extends Operator {
 	@Override
 	public AbstractRecord next() {
 		//TODO: implement this method
+		
+		while(table.iterator().hasNext()){
+			return table.iterator().next();
+		}
+		
+		
+		
 		return null;
 	}
 

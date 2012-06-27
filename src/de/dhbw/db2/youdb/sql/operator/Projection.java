@@ -3,8 +3,8 @@ package de.dhbw.db2.youdb.sql.operator;
 import java.util.Vector;
 
 import de.dhbw.db2.youdb.storage.AbstractRecord;
+import de.dhbw.db2.youdb.storage.Record;
 
-@SuppressWarnings("unused")
 public class Projection extends UnaryOperator {
 	
 	private Vector<Integer> attributes;
@@ -24,7 +24,18 @@ public class Projection extends UnaryOperator {
 	public AbstractRecord next() {
 		//TODO: implement this method
 		
-		return null;
+		AbstractRecord record = new Record(attributes.size());
+		
+		for(int i = 0; attributes.listIterator().hasNext(); i++){
+			int projection = attributes.listIterator().next().intValue();
+			child.open();
+			record.setValue(i, child.next().getValue(projection));
+			
+		}
+		
+		
+		
+		return record;
 	}
 
 	@Override
