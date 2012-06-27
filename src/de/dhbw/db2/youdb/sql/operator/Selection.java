@@ -27,24 +27,26 @@ public class Selection extends UnaryOperator {
 		//TODO: implement this method
 		
 		for(AbstractRecord tmp = child.next(); tmp != null;  tmp = child.next()){
-			if(constant instanceof SQLInteger && tmp.getValue(attribute) instanceof SQLInteger){
-				SQLInteger sqlint = (SQLInteger) constant;
-				SQLInteger sqlatribute = (SQLInteger) tmp.getValue(attribute);
-				if(sqlatribute.getValue() == sqlint.getValue()){
-					return tmp;
-				}
-			} else if(constant instanceof SQLInteger && tmp.getValue(attribute) instanceof SQLInteger){
-				SQLVarchar sqlvarchar = (SQLVarchar) constant;
-				SQLVarchar sqlatribute = (SQLVarchar) tmp.getValue(attribute);
-				if(sqlatribute.getValue().equals(sqlvarchar.getValue())){
-					return tmp;
-				}
+//			if(constant instanceof SQLInteger && tmp.getValue(attribute) instanceof SQLInteger){
+//				SQLInteger sqlint = (SQLInteger) constant;
+//				SQLInteger sqlatribute = (SQLInteger) tmp.getValue(attribute);
+//				if(sqlatribute.getValue() == sqlint.getValue()){
+//					return tmp;
+//				}
+//			} else if(constant instanceof SQLInteger && tmp.getValue(attribute) instanceof SQLInteger){
+//				SQLVarchar sqlvarchar = (SQLVarchar) constant;
+//				SQLVarchar sqlatribute = (SQLVarchar) tmp.getValue(attribute);
+//				if(sqlatribute.getValue().equals(sqlvarchar.getValue())){
+//					return tmp;
+//				}
+//			}
+			
+			if(tmp.getValue(attribute).equals(constant)){
+				return tmp;
 			}
 			
 		}
-//		if(tmp.getValue(attribute).equals(constant)){
-//			return tmp;
-//		}
+
 		
 		
 		
